@@ -1,0 +1,11 @@
+The NFS datastore guidelines and best practices include the following items:
+
+You cannot use different NFS versions to mount the same datastore on different hosts. NFS 3 and NFS 4.1 clients are not compatible and do not use the same locking protocol. As a result, accessing the same virtual disks from two incompatible clients might result in incorrect behavior and cause data corruption.
+
+NFS 3 and NFS 4.1 datastores can coexist on the same host.
+
+ESXi cannot automatically upgrade NFS version 3 to version 4.1, but you can use other conversion methods. For information, see NFS Protocols and ESXi.
+
+When you mount the same NFS 3 volume on different hosts, make sure that the server and folder names are identical across the hosts. If the names do not match, the hosts see the same NFS version 3 volume as two different datastores. This error might result in a failure of such features as vMotion. An example of such discrepancy is entering filer as the server name on one host and filer.domain.com on the other. This guideline does not apply to NFS version 4.1.
+
+If you use non-ASCII characters to name datastores and virtual machines, make sure that the underlying NFS server offers internationalization support. If the server does not support international characters, use only ASCII characters, or unpredictable failures might occur.
